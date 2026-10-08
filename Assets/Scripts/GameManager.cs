@@ -16,4 +16,20 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    public void AddScore(int s)
+    {
+        score += s;
+    }
+
+    private void ResetScore()
+    {
+        score = 0;
+    }
+
+    public void Die()
+    {
+        ResetScore();
+
+    }
 }

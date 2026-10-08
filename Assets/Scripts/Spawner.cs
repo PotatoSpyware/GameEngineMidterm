@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] foods;  
+    [SerializeField] private GameObject[] foods;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

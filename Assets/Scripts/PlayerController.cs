@@ -5,13 +5,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpF;
     private bool grounded;
+    private bool dir;
     private Rigidbody2D rb;
     private Collider2D col;
+    [SerializeField] GameObject bubble;
+    private GameObject tempProj;
+    GameManager gm;
 
     private void Awake()
     {
         TryGetComponent<Rigidbody2D>(out rb);
         TryGetComponent<Collider2D>(out col);
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,10 +30,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             rb.linearVelocityX = -speed;
+            dir = false;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             rb.linearVelocityX = speed;
+            dir = true;
         }
         else
         {
@@ -39,6 +46,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForceY(jumpF);
             grounded = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ShootBubble();
         }
     }
 
@@ -63,6 +75,14 @@ public class PlayerController : MonoBehaviour
 
     private void Eat(GameObject food)
     {
-        //food.GetComponent<>
+        Food temp = food.GetComponent<Food>();
+        gm.AddScore(temp.GetValue());
+    }
+
+    private void ShootBubble()
+    {
+        tempProj = Instantiate(bubble, transform);
+        Bubble temp = tempProj.GetComponent<Bubble>();
+        temp.SetDir(dir);
     }
 }
