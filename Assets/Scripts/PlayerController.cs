@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private float jumpF;
+    private bool grounded;
     private Rigidbody2D rb;
     private Collider2D col;
 
@@ -32,11 +34,25 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocityX = 0;
         }
+
+        if (Input.GetKey(KeyCode.Space) && grounded)
+        {
+            rb.AddForceY(jumpF);
+            grounded = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            grounded = true;
+        }
     }
 }
