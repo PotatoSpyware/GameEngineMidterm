@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float speed;
     private Rigidbody2D rb;
     private Collider2D col;
+    [SerializeField] GameObject food;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,13 +19,21 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dir)
+        if (!bubble)
         {
-            rb.linearVelocityX = speed;
+            if (dir)
+            {
+                rb.linearVelocityX = speed;
+            }
+            else
+            {
+                rb.linearVelocityX = -speed;
+            }
         }
         else
         {
-            rb.linearVelocityX = -speed;
+            rb.linearVelocityX = 0;
+            rb.linearVelocityY = 1;
         }
     }
 
@@ -34,5 +43,26 @@ public class EnemyController : MonoBehaviour
         {
             dir = !dir;
         }
+
+        if (collision.gameObject.tag == "Bubble")
+        {
+            Bubbled();
+        }
+
+        if (bubble && collision.gameObject.tag == "Player")
+        {
+            Die();
+        }
+    }
+
+    private void Bubbled()
+    {
+        bubble = true;
+    }
+
+    private void Die()
+    {
+        Instantiate(food, transform);
+        Destroy(gameObject);
     }
 }

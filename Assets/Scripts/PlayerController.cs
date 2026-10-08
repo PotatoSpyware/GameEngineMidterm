@@ -48,16 +48,16 @@ public class PlayerController : MonoBehaviour
             grounded = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ShootBubble();
-        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ShootBubble();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
