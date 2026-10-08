@@ -54,5 +54,15 @@ public class PlayerController : MonoBehaviour
         {
             grounded = true;
         }
+
+        else if (collision.gameObject.tag == "Food")
+        {
+            Eat(collision.gameObject);
+        }
+    }
+
+    private void Eat(GameObject food)
+    {
+        //food.GetComponent<>
     }
 }
